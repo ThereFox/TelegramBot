@@ -26,11 +26,6 @@ namespace ConsoleApp2.Controllers
             return await executeCommand(message.Text.Trim());
         }
 
-        private async Task<string> getCommandResult(string command)
-        {
-
-        }
-
         private async Task<string> executeCommand(string command)
         {
             APICommand APICommand = new();
