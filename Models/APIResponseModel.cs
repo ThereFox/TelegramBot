@@ -10,4 +10,3 @@ namespace ConsoleApp2.Models
     {
     }
 }
-https://github.com/
