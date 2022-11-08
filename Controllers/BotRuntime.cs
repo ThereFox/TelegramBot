@@ -1,6 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 using ConsoleApp2.Models;
+using ConsoleApp2.View;
 
 
 namespace ConsoleApp2.Controllers
@@ -9,21 +10,31 @@ namespace ConsoleApp2.Controllers
     {
         private ITelegramBotClient Client;
 
-        public BotRuntime()
-        {
-
-        }
 
         public async Task Run()
         {
-            var config = Config.getSettings().Token;
-            Client = new TelegramBotClient(config);
+            var token = Config.getSettings().Token;
+            Client = getBot(token);
 
+            setInitSettings();
+
+            await runAsync();
+        }
+
+        private TelegramBotClient getBot(string token)
+        {
+            return new TelegramBotClient(token);
+        }
+
+        private void setInitSettings()
+        {
             var Handler = new Handler();
 
-            Client.StartReceiving(Handler.Handl, Handler.ErrorHandl);
+            Client.StartReceiving(Handler.GetMessageHandler, Handler.ErrorHandl);
+        }
 
-
+        private async Task runAsync()
+        {
             while (true)
             {
                 await Task.Delay(100);
