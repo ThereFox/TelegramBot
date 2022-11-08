@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ConsoleApp2.Models;
 using Newtonsoft.Json;
 
-namespace ConsoleApp2.Controllers
+namespace ConsoleApp2.Controllers.Commands
 {
-    public class APICommand
+    public class APICommand : ICommand
     {
         private Lazy<HttpClient> _client = new();
 
-        public async Task<string> Execute()
+        public async Task<string> ExecuteAsync()
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "https://v2.jokeapi.dev/joke/Programming?format=txt&type=single");
 
@@ -19,7 +20,7 @@ namespace ConsoleApp2.Controllers
 
 
             return await response.Content.ReadAsStringAsync();
-    }
+        }
 
 
     }

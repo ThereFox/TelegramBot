@@ -1,13 +1,18 @@
-﻿using Telegram.Bot;
+﻿using ConsoleApp2.Models;
+using ConsoleApp2.Controllers.Commands;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace ConsoleApp2.Controllers
 {
     public class ResponseFactory
     {
+
+        private CommandBuilder commandBuilder;
+
         public ResponseFactory()
         {
-
+            commandBuilder = new();
         }
 
         public async Task<string> getRespons(Message message)
@@ -20,16 +25,21 @@ namespace ConsoleApp2.Controllers
 
             if (isCommand(message.Text) == false)
             {
-                return "is not a command";
+                return "is not a commandName";
             }
 
-            return await executeCommand(message.Text.Trim());
-        }
+            ICommand command;
 
-        private async Task<string> executeCommand(string command)
-        {
-            APICommand APICommand = new();
-            return await APICommand.Execute();
+            try
+            {
+                command = commandBuilder.getCommandByName(message.Text.Trim());
+            }
+            catch (InvalidDataException ex)
+            {
+                return ex.Message;
+            }
+
+            return await command.ExecuteAsync();
         }
         private bool isEmptyData(string message)
         {
