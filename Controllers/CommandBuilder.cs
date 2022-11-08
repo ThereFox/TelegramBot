@@ -15,7 +15,7 @@ namespace ConsoleApp2.Controllers
                 switch (commandName)
                 {
                     case "/joke":
-                        return new APICommand();
+                        return new JokeAPICommand();
                     default:
                         throw new InvalidDataException("Такой команды нет");
                 }
