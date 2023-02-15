@@ -2,6 +2,6 @@
 using Telegram.Bot.Types;
 using ConsoleApp2.Controllers;
 
-BotRuntime runtime = new();
+BotStarter runtime = new();
 
 await runtime.Run();
